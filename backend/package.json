@@ -1,0 +1,29 @@
+{
+  "name": "filmnami",
+  "version": "1.0.0",
+  "description": "Film survey",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaroca/filmnami.git"
+  },
+  "keywords": [
+    "film",
+    "survey",
+    "vote",
+    "fun",
+    "profit"
+  ],
+  "author": "aaroca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaroca/filmnami/issues"
+  },
+  "homepage": "https://github.com/aaroca/filmnami#readme",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
