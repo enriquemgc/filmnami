@@ -1,4 +1,5 @@
 var router = require('express').Router();
+var controller = require('../controller/film');
 
 // Handle film id to get all database details before process the request
 router.param('id', function (req, res, next, id) {
