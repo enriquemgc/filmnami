@@ -14,6 +14,10 @@ var databaseConnection = 'mongodb://' + config.database.host + ':' + config.data
 // Create express app
 var app = express();
 
+// Support/parse json post bodies
+var bodyParser = require('body-parser')
+app.use(bodyParser.json()); 
+
 // Add routing middlewares
 app.use(films);
 app.use(film);

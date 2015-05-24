@@ -11,7 +11,9 @@ router.route('/films/:page')
 
 // Get film list
 .get(function (req, res) {
-	res.send("Films");
+	controller.list(req.params.page).then(function(films) {
+		res.status(200).json(films);
+	});
 });
 
 module.exports = router;

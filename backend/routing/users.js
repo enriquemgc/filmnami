@@ -11,7 +11,7 @@ router.route('/users/:page')
 
 // Get users list
 .get(function (req, res) {
-	controller.list().then(function(users) {
+	controller.list(req.params.page).then(function(users) {
 		res.status(200).json(users);
 	});
 });
