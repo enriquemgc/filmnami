@@ -4,5 +4,6 @@
 		"port": 27017,
 		"schema": "filmnami"
 	},
-	"pagination": 10
+	"pagination": 10,
+	"pollLimit": 2
 }

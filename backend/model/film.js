@@ -4,7 +4,6 @@ var Schema = mongoose.Schema;
 // Create a schema
 var filmSchema = new Schema({
   imdb: { type: String, required: true, unique: true },
-  votes: Number,
   watched: Boolean,
   created_at: Date,
   updated_at: Date
@@ -20,11 +19,6 @@ filmSchema.pre('save', function(next) {
   // if created_at doesn't exist, add to that field
   if (!this.created_at) {
     this.created_at = currentDate;
-  }
-  
-  // if votes doesn't exist, initialize to 0
-  if (!this.votes) {
-    this.votes = 0;
   }
   
   // if watched doesn't exist, set to false

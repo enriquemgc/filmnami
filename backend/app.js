@@ -7,6 +7,7 @@ var films = require('./routing/films');
 var film = require('./routing/film');
 var users = require('./routing/users');
 var user = require('./routing/user');
+var poll = require('./routing/poll');
 
 var mongoose = require('mongoose');
 var databaseConnection = 'mongodb://' + config.database.host + ':' + config.database.port + '/' + config.database.schema;
@@ -23,6 +24,7 @@ app.use(films);
 app.use(film);
 app.use(users);
 app.use(user);
+app.use(poll);
 
 // Connect to database
 mongoose.connect(databaseConnection);
