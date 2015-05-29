@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var controller = require('../controller/film');
 
-router.route('/film')
+/*router.route('/film')
 
 // Create a new film
 .post(function (req, res) {
@@ -11,7 +11,7 @@ router.route('/film')
 	function (err) {
 		res.status(500).end();
 	});
-});
+});*/
 
 router.route('/film/:id')
 
@@ -23,9 +23,9 @@ router.route('/film/:id')
 	function(err) {
 		res.status(404).end();
 	});
-})
+});
 
-// Update film details
+/*// Update film details
 .put(function (req, res) {
 	controller.update(req.params.id, req.body).then(function(film) {
 		res.status(200).json(film);
@@ -43,6 +43,6 @@ router.route('/film/:id')
 	function(err) {
 		res.status(404).end();
 	});
-});
+});*/
 
 module.exports = router;

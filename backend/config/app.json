@@ -4,6 +4,9 @@
 		"port": 27017,
 		"schema": "filmnami"
 	},
+	"mandrill": {
+		"apiKey": ""	
+	},
 	"pagination": 10,
 	"pollLimit": 2
 }

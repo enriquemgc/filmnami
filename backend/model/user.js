@@ -8,6 +8,7 @@ var userSchema = new Schema({
   password: { type: String, required: true },
   admin: Boolean,
   idCard: { type: String, required: true },
+  pollDone: Boolean,
   created_at: Date,
   updated_at: Date
 });
@@ -27,6 +28,11 @@ userSchema.pre('save', function(next) {
   // if admin doesn't exist, set to false
   if (!this.admin) {
     this.admin = false;
+  }
+  
+  // if pollDone doesn't exist, set to false
+  if (!this.pollDone) {
+    this.pollDone = false;
   }
   
   // if name doesn't exist, set the same value as username

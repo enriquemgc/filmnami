@@ -27,7 +27,7 @@ router.route('/poll/:username/:filmid')
 
 // Add vote to a film in the active poll
 .put(function (req, res) {
-	controller.update(req.params.username, req.params.filmid).then(function() {
+	controller.vote(req.params.username, req.params.filmid).then(function() {
 		res.status(200).end();
 	},
 	function(err) {
