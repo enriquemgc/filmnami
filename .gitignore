@@ -1,5 +1,5 @@
 node_modules
 db
-.settings
+.tern-project
 bower_components
 .DS_store
