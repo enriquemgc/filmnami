@@ -18,13 +18,13 @@ controller.list = function(page) {
 				fulfill(films);
 			}
 		});
-	});	
+	});
 };
 
 controller.get = function (id) {
 	return new Promise(function (fulfill, reject) {
 		Film.findOne({"imdb": id}, function (err, film) {
-			if (err) {
+			if (err || !film) {
 				console.error("Error getting film: %s. %s", id, err);
 				reject(err);
 			} else {
@@ -37,15 +37,20 @@ controller.get = function (id) {
 
 controller.new = function (film) {
 	return new Promise(function (fulfill, reject) {
-		var newFilm = new Film(film);
-		newFilm.save(function (err) {
-			if (err) {
-				console.error("Error creating the new film: %s", err);
-				reject(err);
-			} else {
-				console.log("New film created");
-				fulfill();
-			}
+		controller.get(film.imdb).then(function(storedFilm) {
+				fulfill(storedFilm);
+		},
+		function(err) {
+			var newFilm = new Film(film);
+			newFilm.save(function (err) {
+				if (err) {
+					console.error("Error creating the new film: %s", err);
+					reject(err);
+				} else {
+					console.log("New film created");
+					fulfill(newFilm);
+				}
+			});
 		});
 	});
 };

@@ -1,8 +1,8 @@
 var config = require('../config/app');
 var Promise = require('promise');
 var Poll = require('../model/poll');
-var User = require('../model/poll');
-var Film = require('../model/film');
+var User = require('./user');
+var Film = require('./film');
 
 var controller = {};
 
@@ -10,42 +10,57 @@ var controller = {};
 
 controller.get = function () {
 	return new Promise(function (fulfill, reject) {
-		
+
 	});
 };
 
 controller.new = function (films) {
 	return new Promise(function (fulfill, reject) {
-		/* {
-  films: [{
-  	film: {
-  		type: mongoose.Schema.Types.ObjectId,
-      ref: 'Film'
-  	},
-  	votes: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    }]
-  }],
-  active: Boolean,
-  created_at: Date,
-  updated_at: Date,
-  close_at: Date
-} */
+		var storedFilms = [];
 
-		
+		// store each film for the poll before create it
+		films.forEach(function(film, index) {
+			Film.new(film).then(function(storedFilm) {
+				storedFilms.push(storedFilm);
+
+				// if have finished storing the films
+				if (index === films.length - 1) {
+					// create the poll
+					var newPoll = new Poll();
+					newPoll.active = true;
+
+					// and add the films reference
+					storedFilms.forEach(function(elem) {
+						newPoll.films.push({
+							film: elem._id
+						});
+					});
+
+					// save a new poll
+					newPoll.save(function(err) {
+						if (err) {
+							console.error("Error creating the new poll: %s", err);
+							reject(err);
+						} else {
+							console.log("New poll created");
+							fulfill(newPoll);
+						}
+					});
+				}
+			});
+		});
 	});
 };
 
 controller.vote = function (username, filmId) {
 	return new Promise(function (fulfill, reject) {
-		
+
 	});
 };
 
 controller.update = function (film) {
 	return new Promise(function (fulfill, reject) {
-		
+
 	});
 };
 
