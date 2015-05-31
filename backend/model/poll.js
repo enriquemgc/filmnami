@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var timeUtil = require('../util/time');
+var config = require('../config/app');
 
 // Create a schema
 var pollSchema = new Schema({
@@ -36,7 +38,11 @@ pollSchema.pre('save', function(next) {
 
   // if close_at doesn't exist, add to that field
   if (!this.close_at) {
-    this.close_at = currentDate;
+    // Get last wednesday of the current month
+    var lastWednesday = timeUtil.lastWeekdayOfMonth(3);
+
+    // Substract x days to the limit to vote in the poll
+    this.close_at = timeUtil.substract(config.pollLimit, 'days', lastWednesday);
   }
 
   // if active doesn't exist, set to false

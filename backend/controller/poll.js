@@ -8,10 +8,18 @@ var Film = require('./film');
 var controller = {};
 
 // Controller functions
-
+// Get active poll
 controller.get = function () {
 	return new Promise(function (fulfill, reject) {
-
+		Poll.findOne({"active": true}, function (err, poll) {
+			if (err) {
+				console.error("Error getting poll. %s", err);
+				reject(err);
+			} else {
+				console.log("Get poll: %j", poll);
+				fulfill(poll);
+			}
+		});
 	});
 };
 
@@ -53,15 +61,27 @@ controller.new = function (films) {
 	});
 };
 
+// Vote active poll
 controller.vote = function (username, filmId) {
 	return new Promise(function (fulfill, reject) {
 
 	});
 };
 
-controller.update = function (film) {
+// Update active poll
+controller.update = function (updatedData) {
 	return new Promise(function (fulfill, reject) {
-
+		controller.get().then(function(poll) {
+			Film.findByIdAndUpdate(poll._id, updatedData, { "new": true }, function(err, poll) {
+				if (err) {
+					console.error("Error updating poll: %s. %s", poll, err);
+					reject(err);
+				} else {
+					console.log("Updated poll: %j", poll);
+					fulfill(poll);
+				}
+			});
+		});
 	});
 };
 

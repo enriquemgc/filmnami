@@ -11,5 +11,6 @@
 		"subject": "Filmnami poll"
 	},
 	"pagination": 10,
-	"pollLimit": 2
+	"pollLimit": 2,
+	"admin": "admin"
 }

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var config = require('../config/app');
 
 // Create a schema
 var userSchema = new Schema({
@@ -29,6 +30,11 @@ userSchema.pre('save', function(next) {
   // if admin doesn't exist, set to false
   if (!this.admin) {
     this.admin = false;
+  }
+
+  // but if the username is equal to the allowed admin username, we set to true
+  if (this.username === config.admin) {
+    this.admin = true;
   }
 
   // if pollDone doesn't exist, set to false
