@@ -5,7 +5,10 @@
 		"schema": "filmnami"
 	},
 	"mandrill": {
-		"apiKey": ""	
+		"apiKey": "",
+		"from_email": "filmnami@test.com",
+		"from_name": "Filmnami",
+		"subject": "Filmnami poll"
 	},
 	"pagination": 10,
 	"pollLimit": 2

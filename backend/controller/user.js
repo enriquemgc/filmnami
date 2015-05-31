@@ -1,5 +1,6 @@
 var config = require('../config/app');
 var Promise = require('promise');
+var Async = require('async');
 var User = require('../model/user');
 
 var controller = {};
@@ -18,7 +19,7 @@ controller.list = function(page) {
 				fulfill(users);
 			}
 		});
-	});	
+	});
 };
 
 controller.get = function (username) {
@@ -73,6 +74,39 @@ controller.delete = function (username) {
 			} else {
 				console.log("Deleted user: %j", user);
 				fulfill(user);
+			}
+		});
+	});
+};
+
+// Get the next user to create a poll
+controller.getUserToPoll = function() {
+	return new Promise(function (fulfill, reject) {
+		User.find({"pollDone":false}).limit(1).sort('idCard').exec(function(err, user) {
+			if (!err) {
+				// If we don't get any user we should reset the poll state of each one
+				if (!user || user.length == 0) {
+					User.find({"pollDone":true}).select('username').exec(function(err, users) {
+						Async.each(users, function(eachUser, callback) {
+							controller.update(eachUser.username, {"pollDone":false}).then(function() {
+								callback();
+							});
+						},
+						function(err) {
+							if (!err) {
+								controller.getUserToPoll().then(function(user) {
+									fulfill(user);
+								}, function(err) {
+									reject(err);
+								});
+							}
+						});
+					});
+				} else {
+					fulfill(user);
+				}
+			} else {
+				reject(err);
 			}
 		});
 	});

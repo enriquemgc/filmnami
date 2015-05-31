@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/aaroca/filmnami#readme",
   "dependencies": {
+    "async": "^1.0.0",
     "body-parser": "^1.12.4",
     "express": "^4.12.3",
     "mandrill-api": "^1.0.45",

@@ -6,6 +6,7 @@ var userSchema = new Schema({
   name: String,
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  email: { type: String, required: true },
   admin: Boolean,
   idCard: { type: String, required: true },
   pollDone: Boolean,
@@ -16,7 +17,7 @@ var userSchema = new Schema({
 userSchema.pre('save', function(next) {
   // get the current date
   var currentDate = new Date();
-  
+
   // change the updated_at field to current date
   this.updated_at = currentDate;
 
@@ -24,17 +25,17 @@ userSchema.pre('save', function(next) {
   if (!this.created_at) {
     this.created_at = currentDate;
   }
-  
+
   // if admin doesn't exist, set to false
   if (!this.admin) {
     this.admin = false;
   }
-  
+
   // if pollDone doesn't exist, set to false
   if (!this.pollDone) {
     this.pollDone = false;
   }
-  
+
   // if name doesn't exist, set the same value as username
   if (!this.name) {
     this.name = this.username;
